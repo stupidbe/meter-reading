@@ -1,0 +1,36 @@
+# Digital Meter Reading Pipeline - Conda environment
+# 使用方法:
+#   conda env create -f environment.yml
+#   conda activate meter-reading
+#   python3 predict.py --input ./照片文件夹 --output ./结果
+
+name: meter-reading
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.24.0
+  - opencv>=4.8.0
+  - pillow>=10.0.0
+  - pyyaml>=6.0
+  - python-levenshtein>=0.20.0
+
+  # PyTorch with CUDA 12.1 (GPU support)
+  - pytorch=2.5.1
+  - torchvision=0.20.1
+  - pytorch-cuda=12.1
+
+  - pip:
+    # Object detection (YOLOv8)
+    - ultralytics>=8.0.0
+
+    # OCR recognition (OpenOCR SVTRv2)
+    - openocr-python>=0.1.0
+
+    # For API server (optional)
+    - flask>=2.0.0
+    - gunicorn>=20.0.0

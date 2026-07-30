@@ -1,0 +1,26 @@
+# Python dependencies for Digital Meter Reading Pipeline
+# =======================================================
+
+# Core ML framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Object detection
+ultralytics>=8.0.0
+
+# OCR recognition
+openocr-python>=0.1.0
+
+# Image processing
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+pillow>=10.0.0
+
+# Data & utilities
+numpy>=1.24.0
+PyYAML>=6.0
+Levenshtein>=0.20.0
+
+# HTTP server (optional, for API mode)
+flask>=2.0.0
+gunicorn>=20.0.0

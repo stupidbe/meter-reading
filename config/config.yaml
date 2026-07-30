@@ -1,0 +1,27 @@
+# Digital Meter Reading Pipeline Configuration
+# ==============================================
+# 注意：路径支持相对路径（相对于运行目录）和绝对路径
+
+detection:
+  # REG (水平矩形框) 检测模型
+  reg_model: models/detection/delivery_best.pt
+  # OBB (旋转框) 检测模型
+  obb_model: models/detection/yolov8n_obb_wordwheel.pt
+
+  # 标准检测置信度阈值 (Phase 1)
+  conf_thresholds: [0.1, 0.05, 0.01]
+  # 难例回退检测置信度阈值 (Phase 2)
+  low_conf_thresholds: [0.01, 0.005, 0.001]
+
+recognition:
+  model: svtrv2
+
+data:
+  # 输入图片目录（predict.py 的 --input 参数会覆盖此值）
+  data_dir: /data
+  # 标签文件（仅评估模式使用，生产环境不需要）
+  labels_file: labels.csv
+  # 输出目录（predict.py 的 --output 参数会覆盖此值）
+  output_dir: /results
+
+device: auto  # auto = 优先GPU，无GPU时使用CPU

@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  meter-reading:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digital-meter-reading:1.0.0
+    container_name: meter-reading-pipeline
+    # GPU 支持（需要 NVIDIA Container Toolkit）
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+    volumes:
+      # 挂载你的图片目录（所有 .jpg/.png 都会被识别）
+      - ./data:/data
+      # 结果输出目录
+      - ./results:/results
+    # 默认：识别 /data 下的所有图片
+    command: ["--input", "/data", "--output", "/results", "--visualize"]
+    # API 服务模式（取消下面注释，注释上面的 command）：
+    # command: ["python3", "/app/scripts/api_server.py", "--port", "5000"]
+    ports:
+      - "5000:5000"
