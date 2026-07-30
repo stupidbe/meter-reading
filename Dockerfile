@@ -48,16 +48,12 @@ COPY models/detection/delivery_best.pt /app/models/detection/delivery_best.pt
 COPY models/detection/yolov8n_obb_wordwheel.pt /app/models/detection/yolov8n_obb_wordwheel.pt
 
 # ============================================================
-# Pre-download OpenOCR recognition model (SVTRv2, 118MB)
-# Automatically downloaded from HuggingFace / ModelScope
+# OpenOCR recognition model (SVTRv2, 118MB)
+# Will be auto-downloaded from HuggingFace/ModelScope on first use.
+# No internet? Pre-download manually:
+#   python3 -c "from openocr import OpenOCR; OpenOCR(task='rec', mode='server', backend='torch', use_gpu='auto')"
 # ============================================================
-RUN python3 << 'EOF'
-from openocr import OpenOCR
-print("Downloading OpenOCR SVTRv2 model (118MB)...")
-ocr = OpenOCR(task="rec", mode="server", backend="torch", use_gpu="auto")
-print("Model ready!")
-EOF
-RUN ls -lh /root/.cache/openocr/openocr_svtrv2_ch.pth
+RUN mkdir -p /root/.cache/openocr
 
 # ============================================================
 # Entry point scripts
