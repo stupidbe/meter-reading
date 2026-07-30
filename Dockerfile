@@ -48,12 +48,12 @@ COPY models/detection/delivery_best.pt /app/models/detection/delivery_best.pt
 COPY models/detection/yolov8n_obb_wordwheel.pt /app/models/detection/yolov8n_obb_wordwheel.pt
 
 # ============================================================
-# OpenOCR recognition model (SVTRv2, 118MB)
-# Will be auto-downloaded from HuggingFace/ModelScope on first use.
-# No internet? Pre-download manually:
-#   python3 -c "from openocr import OpenOCR; OpenOCR(task='rec', mode='server', backend='torch', use_gpu='auto')"
+# Copy OpenOCR recognition model (SVTRv2, 118MB)
+# Pre-loaded via Git LFS - no download needed at build or runtime.
 # ============================================================
 RUN mkdir -p /root/.cache/openocr
+COPY models/recognition/openocr_svtrv2_ch.pth /root/.cache/openocr/openocr_svtrv2_ch.pth
+RUN ls -lh /root/.cache/openocr/openocr_svtrv2_ch.pth
 
 # ============================================================
 # Entry point scripts

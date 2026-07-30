@@ -4,5 +4,4 @@ __pycache__/
 data/
 results/
 
-# Large model files (>100MB) - download during Docker build
-models/recognition/*.pth
+# Large model files (>100MB) - managed by Git LFS
