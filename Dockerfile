@@ -51,12 +51,12 @@ COPY models/detection/yolov8n_obb_wordwheel.pt /app/models/detection/yolov8n_obb
 # Pre-download OpenOCR recognition model (SVTRv2, 118MB)
 # Automatically downloaded from HuggingFace / ModelScope
 # ============================================================
-RUN python3 -c "
+RUN python3 << 'EOF'
 from openocr import OpenOCR
-print('Downloading OpenOCR SVTRv2 model (118MB)...')
-ocr = OpenOCR(task='rec', mode='server', backend='torch', use_gpu='auto')
-print('Model ready!')
-"
+print("Downloading OpenOCR SVTRv2 model (118MB)...")
+ocr = OpenOCR(task="rec", mode="server", backend="torch", use_gpu="auto")
+print("Model ready!")
+EOF
 RUN ls -lh /root/.cache/openocr/openocr_svtrv2_ch.pth
 
 # ============================================================
